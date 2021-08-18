@@ -4,11 +4,11 @@ void input(double *a, double*b, double*c); // для ввода данных
 void eatline(); // для отбрасывания отсальной части строки, если данные будут введены с мусором
 void wrong_input(); // на случай неправильного ввода
 void solution(double*, double, double, double); // решение уравнения
-void a_0(double*, double b, double c); // если а == 0
-void b_0(double*, double a, double c); // если b == 0
-void c_0(double*, double a, double b); // если c == 0
+void solution_without_a(double*, double b, double c); // если а == 0
+void solution_without_b(double*, double a, double c); // если b == 0
+void solution_without_c(double*, double a, double b); // если c == 0
 void classic(double*, double, double, double); // решение через дискриминант
-void print_answers(double*); // для вывода результата на экран
+void print_answers(double*);
 const double zero = 1e-20;
 
 
@@ -54,20 +54,20 @@ void wrong_input() {
 
 void solution(double* answers, double a, double b, double c) {
 	if (fabs(a - 0) < zero) {
-		a_0(answers,  b, c);
+	    solution_without_a(answers,  b, c);
 	}
 	else if (fabs(b - 0) < zero) {
-		b_0(answers, a, c);
+		solution_without_b(answers, a, c);
 	}
 	else if (fabs(c - 0) < zero) {
-		c_0(answers, a, b);
+		solution_without_c(answers, a, b);
 	}
 	else {
 		classic(answers, a, b, c);
 	}
 }
 
-void a_0(double* ans, double b, double c) {
+void solution_without_a(double* ans, double b, double c) {
 	if (fabs(c - 0) < zero) {
 		
 		if (fabs(b - 0) < zero) {
@@ -87,7 +87,7 @@ void a_0(double* ans, double b, double c) {
 	}
 }
 
-void b_0(double* ans, double a, double c) {
+void solution_without_b(double* ans, double a, double c) {
 	if (fabs(c - 0) < zero) {
 		
 		if (fabs(a - 0) < zero) {
@@ -111,7 +111,7 @@ void b_0(double* ans, double a, double c) {
 	}
 }
 
-void c_0(double* ans, double a, double b) {
+void solution_without_c(double* ans, double a, double b) {
 	if (fabs(a - 0) < zero) {
 		
 		if (fabs(b - 0) < zero) {
