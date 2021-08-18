@@ -14,8 +14,8 @@ const double zero = 1e-20;
 
 
 int main(void) {
-	double a, b, c;
-	double answers[3]; // первый элемент является числом решений
+	double a = 0, b = 0, c = 0;
+	double answers[3] = { 0, 0, 0 }; // первый элемент является числом решений
 	// второй и третьий равны значениям х, если она существуют
 	printf("Hi! This program solves quadratic equations a*x^2 + b*x + c = 0 \n");
 	input(&a, &b, &c);
