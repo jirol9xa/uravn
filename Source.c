@@ -1,12 +1,12 @@
 #include <stdio.h> /* s_gets()*/
 #include <math.h>
-void vvod(double *a, double*b, double*c); // äëÿ ââîäà äàííûõ
-void eatline(); // äëÿ îòáðàñûâàíèÿ îòñàëüíîé ÷àñòè ñòðîêè, åñëè äàííûå áóäóò ââåäåíû ñ ìóñîðîì
-void glupii(); // íà ñëó÷àé íåïðàâèëüíîãî ââîäà
-void a_0(double* b, double* c); // åñëè à == 0
-void b_0(double* a, double* c); // åñëè b == 0
-void c_0(double* a, double* b); // åñëè c == 0
-void classic(double*, double*, double*); // ðåøåíèå ÷åðåç äèñêðèìèíàíò
+void vvod(double *a, double*b, double*c); // для ввода данных
+void eatline(); // для отбрасывания отсальной части строки, если данные будут введены с мусором
+void glupii(); // на случай неправильного ввода
+void a_0(double* b, double* c); // если а == 0
+void b_0(double* a, double* c); // если b == 0
+void c_0(double* a, double* b); // если c == 0
+void classic(double*, double*, double*); // решение через дискриминант
 double dabs(double a, double b); // abs для типа double
 const double zero = 1e-20;
 int main(void) {
