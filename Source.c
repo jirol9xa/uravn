@@ -1,44 +1,42 @@
-#include <stdio.h>
+#include <stdio.h> 
 #include <math.h>
-void vvod(double *a, double*b, double*c); // для ввода данных
+void input(double *a, double*b, double*c); // для ввода данных
 void eatline(); // для отбрасывания отсальной части строки, если данные будут введены с мусором
-void glupii(); // на случай неправильного ввода
-void a_0(double* b, double* c); // если а == 0
-void b_0(double* a, double* c); // если b == 0
-void c_0(double* a, double* b); // если c == 0
-void classic(double*, double*, double*); // решение через дискриминант
-double dabs(double a, double b);
+void wrong_input(); // на случай неправильного ввода
+void solution(double*, double, double, double); // решение уравнения
+void a_0(double*, double b, double c); // если а == 0
+void b_0(double*, double a, double c); // если b == 0
+void c_0(double*, double a, double b); // если c == 0
+void classic(double*, double, double, double); // решение через дискриминант
+void print_answers(double*); // для вывода результата на экран
 const double zero = 1e-20;
+
+
+
 int main(void) {
 	double a, b, c;
-	printf("Privet! Eta programma reshaet uravnenia vida a*x^2 + b*x + c = 0 \n");
-	vvod(&a, &b, &c);
-	printf("Uravnenie imeet vid: %lg*x^2 + %lg*x + %lg = 0 \n", a, b, c);
-	if (dabs(a, 0) < zero) {
-		a_0(&b, &c);
-	}
-	else if (dabs(b, 0) < zero) {
-		b_0(&a, &c);
-	}
-	else if (dabs(c, 0) < zero) {
-		c_0(&a, &b);
-	}
-	else {
-		classic(&a, &b, &c);
-	}
-	printf("Uravnenie resheno :)");
+	double answers[3]; // первый элемент является числом решений
+	// второй и третьий равны значениям х, если она существуют
+	printf("Hi! This program solves quadratic equations a*x^2 + b*x + c = 0 \n");
+	input(&a, &b, &c);
+	printf("Quadratic equation: %lg*x^2 + %lg*x + %lg = 0 \n", a, b, c);
+	solution(answers, a, b, c);
+	print_answers(answers);
+	printf("The equation is solved :)");
 	return 0;
 }
 
-void vvod(double* a, double* b, double* c) {
-	printf("Teper' vvedite znachenia a, b, c \n");
-	printf("vvedite a \n");
+
+
+void input(double* a, double* b, double* c) {
+	printf("Now enter the values a, b, c \n");
+	printf("enter a \n");
 	scanf("%lf", a);
 	eatline();
-	printf("vvedite b \n");
+	printf("enter b \n");
 	scanf("%lf", b);
 	eatline();
-	printf("vvedite c \n");
+	printf("enter c \n");
 	scanf("%lf", c);
 	eatline();
 	return;
@@ -50,81 +48,121 @@ void eatline() {
 	}
 }
 
-void glupii() {
-	printf("Vvedi prosto chislo, dura4ok \n");
+void wrong_input() {
+	printf("Just enter a number \n");
 }
 
-void a_0(double* b, double* c) {
-	if (dabs(*c, 0) < zero) {
-		
-		if (dabs(*b, 0) < zero) {
-			printf("Uravnenie verno pri lubom x \n");
-		}
-		else {
-			printf("Uravnenie imeet odin koren' x = 0 \n");
-		}
+void solution(double* answers, double a, double b, double c) {
+	if (fabs(a - 0) < zero) {
+		a_0(answers,  b, c);
 	}
-	else if (dabs(*b, 0) < zero) { //следовательно с != 0
-		printf("Reshenii net \n");
+	else if (fabs(b - 0) < zero) {
+		b_0(answers, a, c);
+	}
+	else if (fabs(c - 0) < zero) {
+		c_0(answers, a, b);
 	}
 	else {
-		printf("Uravnenie imeet odno reshenie x = %lg \n", - *c / *b);
+		classic(answers, a, b, c);
 	}
 }
 
-void b_0(double* a, double* c) {
-	if (dabs(*c, 0) < zero) {
+void a_0(double* ans, double b, double c) {
+	if (fabs(c - 0) < zero) {
 		
-		if (dabs(*a, 0) < zero) {
-			printf("Uravnenie verno pri lubom x \n ");
+		if (fabs(b - 0) < zero) {
+			ans[0] = 3;
 		}
 		else {
-			printf("Uravnenie imeet odno reshenie x = 0 \n");
+			ans[0] = 1;
+			ans[1] = 0;
 		}
 	}
-	else if (dabs(*a, 0) < zero) { // следовальено с != 0
-		printf("Reshenii net \n ");
-	}
-	else if ((*a * *c) > 0) {
-		printf("Reshenii net \n ");
+	else if (fabs(b - 0) < zero) { //следовательно с != 0
+		ans[0] = 0;
 	}
 	else {
-		printf("Uravnenie imeet dva reshenia x1 = %lg, x2 = %lg \n ", +sqrt(- *c / *a), -sqrt(- *c / *a));
+		ans[0] = 1;
+		ans[1] = -c / b;
 	}
 }
 
-void c_0(double* a, double* b) {
-	if (dabs(*a, 0) < zero) {
+void b_0(double* ans, double a, double c) {
+	if (fabs(c - 0) < zero) {
 		
-		if (dabs(*b, 0) < zero) {
-			printf("Uravnenie verno pri lubom x \n");
+		if (fabs(a - 0) < zero) {
+			ans[0] = 3;
+		}
+		else {
+			ans[0] = 1;
+			ans[1] = 0;
+		}
+	}
+	else if (fabs(a - 0) < zero) { // следовальено с != 0
+		ans[0] = 0;
+	}
+	else if ((a * c) > 0) {
+		ans[0] = 0;
+	}
+	else {
+		ans[0] = 2;
+		ans[1] = +sqrt(-c / a);
+		ans[2] = -sqrt(-c / a);
+	}
+}
+
+void c_0(double* ans, double a, double b) {
+	if (fabs(a - 0) < zero) {
+		
+		if (fabs(b - 0) < zero) {
+			ans[0] = 3;
 		}
 		else{
-			printf("Uravnenie immet odno reshenie x = 0 \n");
+			ans[0] = 1;
+			ans[1] = 0;
 		}
 	}
-	else if (dabs(*b, 0) < zero) { // следовательно а != 0
-		printf("Uravnenie imeet odno reshenie x = 0 \n");
+	else if (fabs(b - 0) < zero) { // следовательно а != 0
+		ans[0] = 1;
+		ans[1] = 0;
 	}
 	else {
-		printf("Uravnenie imeet dva reshenia x1 = 0, x2 = %lg \n ", - *b / *a);
+		ans[0] = 2;
+		ans[1] = 0;
+		ans[2] = -b / a;
 	}
 }
 
-void classic(double* a, double* b, double* c) {
+void classic(double* ans, double a, double b, double c) {
 	double diskr;
-	diskr = (*b) * (*b) - 4 * (*a) * (*c);
+	diskr = (b) * (b) - 4 * (a) * (c);
 	if (diskr < 0) {
-		printf("Uravnenie ne imeet reshenii \n");
+		ans[0] = 0;
 	}
-	else if (dabs(diskr, 0) < zero) {
-		printf("Uravnenie imeet odno reshenie x = %lg \n", -(*b) / (2 * (*a)));
+	else if (fabs(diskr - 0) < zero) {
+		ans[0] = 1;
+		ans[1] = -(b) / (2 * (a));
 	}
 	else {
-		printf("Uravnenie imeet dva reshenia x1 = %lg, x2 = %lg \n", (-(*b) - sqrt(diskr)) / (2 * (*a)), (-(*b) + sqrt(diskr)) / (2 * (*a)));
+		ans[0] = 2;
+		ans[1] = (-(b)-sqrt(diskr)) / (2 * (a));
+		ans[2] = (-(b)+sqrt(diskr)) / (2 * (a));
 	}
 }
 
-double dabs(double a, double b) {
-	return (a > b) ? (a - b) : (b - a);
+
+
+void print_answers(double* ans) {
+	if (fabs(ans[0] - 0) < zero) {
+		printf("The equation has no solutions \n");
+	}
+	else if (fabs(ans[0] - 1) < zero) {
+		printf("The equation has one solution x = %lg \n", ans[1]);
+	}
+	else if (fabs(ans[0] - 2) < zero) {
+		printf("The equation has two solution x1 = %lg, x2 = %lg \n", ans[1], ans[2]);
+	}
+	else {
+		printf("The equation has an infinite number of solutions \n");
+	}
 }
