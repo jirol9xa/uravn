@@ -1,13 +1,13 @@
 #include <stdio.h> /* s_gets()*/
 #include <math.h>
-void vvod(double *a, double*b, double*c); // для ввода данных
-void eatline(); // для отбрасывания отсальной части строки, если данные будут введены с мусором
-void glupii(); // на случай неправильного ввода
-void a_0(double* b, double* c); // если а == 0
-void b_0(double* a, double* c); // если b == 0
-void c_0(double* a, double* b); // если c == 0
-void classic(double*, double*, double*); // решение через дискриминант
-double dabs(double a, double b);
+void vvod(double *a, double*b, double*c); // Г¤Г«Гї ГўГўГ®Г¤Г  Г¤Г Г­Г­Г»Гµ
+void eatline(); // Г¤Г«Гї Г®ГІГЎГ°Г Г±Г»ГўГ Г­ГЁГї Г®ГІГ±Г Г«ГјГ­Г®Г© Г·Г Г±ГІГЁ Г±ГІГ°Г®ГЄГЁ, ГҐГ±Г«ГЁ Г¤Г Г­Г­Г»ГҐ ГЎГіГ¤ГіГІ ГўГўГҐГ¤ГҐГ­Г» Г± Г¬ГіГ±Г®Г°Г®Г¬
+void glupii(); // Г­Г  Г±Г«ГіГ·Г Г© Г­ГҐГЇГ°Г ГўГЁГ«ГјГ­Г®ГЈГ® ГўГўГ®Г¤Г 
+void a_0(double* b, double* c); // ГҐГ±Г«ГЁ Г  == 0
+void b_0(double* a, double* c); // ГҐГ±Г«ГЁ b == 0
+void c_0(double* a, double* b); // ГҐГ±Г«ГЁ c == 0
+void classic(double*, double*, double*); // Г°ГҐГёГҐГ­ГЁГҐ Г·ГҐГ°ГҐГ§ Г¤ГЁГ±ГЄГ°ГЁГ¬ГЁГ­Г Г­ГІ
+double dabs(double a, double b); // abs РґР»СЏ С‚РёРїР° double
 const double zero = 1e-20;
 int main(void) {
 	double a, b, c;
@@ -64,7 +64,7 @@ void a_0(double* b, double* c) {
 			printf("Uravnenie imeet odin koren' x = 0 \n");
 		}
 	}
-	else if (dabs(*b, 0) < zero) { //следовательно с != 0
+	else if (dabs(*b, 0) < zero) { //Г±Г«ГҐГ¤Г®ГўГ ГІГҐГ«ГјГ­Г® Г± != 0
 		printf("Reshenii net \n");
 	}
 	else {
@@ -82,7 +82,7 @@ void b_0(double* a, double* c) {
 			printf("Uravnenie imeet odno reshenie x = 0 \n");
 		}
 	}
-	else if (dabs(*a, 0) < zero) { // следовальено с != 0
+	else if (dabs(*a, 0) < zero) { // Г±Г«ГҐГ¤Г®ГўГ Г«ГјГҐГ­Г® Г± != 0
 		printf("Reshenii net \n ");
 	}
 	else if ((*a * *c) > 0) {
@@ -103,7 +103,7 @@ void c_0(double* a, double* b) {
 			printf("Uravnenie immet odno reshenie x = 0 \n");
 		}
 	}
-	else if (dabs(*b, 0) < zero) { // следовательно а != 0
+	else if (dabs(*b, 0) < zero) { // Г±Г«ГҐГ¤Г®ГўГ ГІГҐГ«ГјГ­Г® Г  != 0
 		printf("Uravnenie imeet odno reshenie x = 0 \n");
 	}
 	else {
