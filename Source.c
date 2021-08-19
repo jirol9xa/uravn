@@ -1,30 +1,35 @@
 #include <stdio.h> 
 #include <math.h>
-void input(double *a, double*b, double*c); // для ввода данных
-void eatline(); // для отбрасывания отсальной части строки, если данные будут введены с мусором
-void wrong_input(); // на случай неправильного ввода
+
 struct Answers{
 	int amount;
-	double x1;
-	double x2;
+	double x[2];
+	double coefficient_a;
+	double coefficient_b;
+	double coefficient_c;
 };
 
-void solution(struct Answers* ans, double, double, double); // решение уравнения
-void solution_without_a(struct Answers* ans, double b, double c); // если а == 0
-void classic(struct Answers* ans, double, double, double); // решение через дискриминант
+void input(struct Answers*); // для ввода данных
+void eatline(); // для отбрасывания отсальной части строки, если данные будут введены с мусором
+void wrong_input(); // на случай неправильного ввода
+void solve_equation(struct Answers* ans); // решение уравнения
+void linear_equation(struct Answers* ans); // если а == 0
+void the_quadratic_equation(struct Answers* ans); // решение через дискриминант
 void print_answers(struct Answers*);
 const double zero = 1e-20;
 
 
 
 int main(void) {
-	double a = 0, b = 0, c = 0;
-	struct Answers ans = { 0, 0, 0 }; // первый элемент является числом решений
-	// второй и третьий равны значениям х, если она существуют
+	struct Answers ans = { 0,
+		                  {0, 0},
+	                       0, 0 }; // первый элемент является числом решений
+	// второй и третьий равны значениям х, если они существуют
+	// последние три отвечают за коэффициенты уравнения
 	printf("Hi! This program solves quadratic equations a*x^2 + b*x + c = 0 \n");
-	input(&a, &b, &c);
-	printf("Quadratic equation: %lg*x^2 + %lg*x + %lg = 0 \n", a, b, c);
-	solution(&ans, a, b, c);
+	input(&ans);
+	printf("Quadratic equation: %lg*x^2 + %lg*x + %lg = 0 \n", ans.coefficient_a, ans.coefficient_b, ans.coefficient_c);
+	solve_equation(&ans);
 	print_answers(&ans);
 	printf("The equation is solved :)");
 	return 0;
@@ -33,16 +38,16 @@ int main(void) {
 
 
 
-void input(double* a, double* b, double* c) {
+void input(struct Answers* ans) {
 	printf("Now enter the values a, b, c \n");
 	printf("enter a \n");
-	scanf("%lf", a);
+	scanf("%lf", &(ans->coefficient_a));
 	eatline();
 	printf("enter b \n");
-	scanf("%lf", b);
+	scanf("%lf", &(ans->coefficient_b));
 	eatline();
 	printf("enter c \n");
-	scanf("%lf", c);
+	scanf("%lf", &(ans->coefficient_c));
 	eatline();
 	return;
 }
@@ -60,64 +65,54 @@ void wrong_input() {
 }
 
 
-void solution(struct Answers* ans, double a, double b, double c) {
-	if (fabs(a - 0) < zero) {
-	    solution_without_a(ans,  b, c);
+void solve_equation(struct Answers* ans) {
+	if (fabs(ans->coefficient_a) < zero) {
+		linear_equation(ans);
 	}
 	else {
-		classic(ans, a, b, c);
+		the_quadratic_equation(ans);
 	}
 }
 
 
-void solution_without_a(struct Answers* ans, double b, double c) {
-	if (fabs(c - 0) < zero) {
-		
-		if (fabs(b - 0) < zero) {
+void linear_equation(struct Answers* ans) {
+	if (fabs((*ans).coefficient_b) < zero) {
+		if (fabs((*ans).coefficient_c) < zero) {
 			(*ans).amount = 3;
 		}
-		else {
-			(*ans).amount = 1;
-			(*ans).x1 = 0;
-		}
-	}
-	else if (fabs(b - 0) < zero) { //следовательно с != 0
-		(*ans).amount = 0;
 	}
 	else {
 		(*ans).amount = 1;
-		(*ans).x1 = -c / b;
+		(*ans).x[0] = -(*ans).coefficient_c / (*ans).coefficient_b;
 	}
 }
 
 
-void classic(struct Answers* ans, double a, double b, double c) {
-	double diskr = (b) * (b)-4 * (a) * (c);
+void the_quadratic_equation(struct Answers* ans) {
+	double diskr = ans->coefficient_b * ans->coefficient_b -4 * ans->coefficient_a * ans->coefficient_c;
 	if (diskr < 0) {
 		ans->amount = 0;
 	}
 	else if (fabs(diskr - 0) < zero) {
 		ans->amount = 1;
-		ans->x1 = -(b) / (2 * (a));
+		ans->x[0] = -(ans->coefficient_b) / (2 * (ans->coefficient_a));
 	}
 	else {
 		ans->amount = 2;
-		ans->x1 = (-(b)-sqrt(diskr)) / (2 * (a));
-		ans->x2 = (-(b)+sqrt(diskr)) / (2 * (a));
+		ans->x[0] = (-(ans->coefficient_b)-sqrt(diskr)) / (2 * (ans->coefficient_a));
+		ans->x[1] = (-(ans->coefficient_b)+sqrt(diskr)) / (2 * (ans->coefficient_a));
 	}
 }
 
 void print_answers(struct Answers* ans) {
-	if (ans->amount == 0) {
-		printf("The equation has no solutions \n");
-	}
-	else if (ans->amount == 1) {
-		printf("The equation has one solution x = %lg \n", (*ans).x1);
-	}
-	else if (ans->amount == 2) {
-		printf("The equation has two solution x1 = %lg, x2 = %lg \n", (*ans).x1, (*ans).x2);
+	if (ans->amount == 3) {
+		printf("The equation has an infinite number of solutions \n");
 	}
 	else {
-		printf("The equation has an infinite number of solutions \n");
+		printf("The equation has %d solutions ", ans->amount);
+		for (int i = 0; i < ans->amount; i++) {
+			printf("x%d = %lg ", i + 1, ans->x[i]);
+		}
+		printf("\n");
 	}
 }
