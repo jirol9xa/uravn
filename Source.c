@@ -3,24 +3,23 @@
 void input(double *a, double*b, double*c); // для ввода данных
 void eatline(); // для отбрасывания отсальной части строки, если данные будут введены с мусором
 void wrong_input(); // на случай неправильного ввода
-struct answers{
+struct Answers{
 	int amount;
 	double x1;
 	double x2;
 };
 
-void solution(struct answers* ans, double, double, double); // решение уравнения
-void solution_without_a(struct answers* ans, double b, double c); // если а == 0
-void solution_without_b(struct answers* ans, double a, double c); // если b == 0
-void solution_without_c(struct answers* ans, double a, double b); // если c == 0
-void classic(struct answers* ans, double, double, double); // решение через дискриминант
-void print_answers(struct answers*);
+void solution(struct Answers* ans, double, double, double); // решение уравнения
+void solution_without_a(struct Answers* ans, double b, double c); // если а == 0
+void classic(struct Answers* ans, double, double, double); // решение через дискриминант
+void print_answers(struct Answers*);
 const double zero = 1e-20;
+
 
 
 int main(void) {
 	double a = 0, b = 0, c = 0;
-	struct answers ans = { 0, 0, 0 }; // первый элемент является числом решений
+	struct Answers ans = { 0, 0, 0 }; // первый элемент является числом решений
 	// второй и третьий равны значениям х, если она существуют
 	printf("Hi! This program solves quadratic equations a*x^2 + b*x + c = 0 \n");
 	input(&a, &b, &c);
@@ -30,6 +29,7 @@ int main(void) {
 	printf("The equation is solved :)");
 	return 0;
 }
+
 
 
 
@@ -47,32 +47,30 @@ void input(double* a, double* b, double* c) {
 	return;
 }
 
+
 void eatline() {
 	while (getchar() != '\n') {
 		continue;
 	}
 }
 
+
 void wrong_input() {
 	printf("Just enter a number \n");
 }
 
-void solution(struct answers* ans, double a, double b, double c) {
+
+void solution(struct Answers* ans, double a, double b, double c) {
 	if (fabs(a - 0) < zero) {
 	    solution_without_a(ans,  b, c);
-	}
-	else if (fabs(b - 0) < zero) {
-		solution_without_b(ans, a, c);
-	}
-	else if (fabs(c - 0) < zero) {
-		solution_without_c(ans, a, b);
 	}
 	else {
 		classic(ans, a, b, c);
 	}
 }
 
-void solution_without_a(struct answers* ans, double b, double c) {
+
+void solution_without_a(struct Answers* ans, double b, double c) {
 	if (fabs(c - 0) < zero) {
 		
 		if (fabs(b - 0) < zero) {
@@ -92,55 +90,9 @@ void solution_without_a(struct answers* ans, double b, double c) {
 	}
 }
 
-void solution_without_b(struct answers* ans, double a, double c) {
-	if (fabs(c - 0) < zero) {
-		
-		if (fabs(a - 0) < zero) {
-			ans->amount = 3;
-		}
-		else {
-			ans->amount = 1;
-			ans->x1 = 0;
-		}
-	}
-	else if (fabs(a - 0) < zero) { // следовальено с != 0
-		ans->amount = 0;
-	}
-	else if ((a * c) > 0) {
-		ans->amount = 0;
-	}
-	else {
-		ans->amount = 2;
-		ans->x1 = +sqrt(-c / a);
-		ans->x2 = -sqrt(-c / a);
-	}
-}
 
-void solution_without_c(struct answers* ans, double a, double b) {
-	if (fabs(a - 0) < zero) {
-		
-		if (fabs(b - 0) < zero) {
-			ans->amount = 3;
-		}
-		else{
-			ans->amount = 1;
-			ans->x1 = 0;
-		}
-	}
-	else if (fabs(b - 0) < zero) { // следовательно а != 0
-		(*ans).amount = 1;
-		(*ans).x1 = 0;
-	}
-	else {
-		(*ans).amount = 2;
-		(*ans).x1 = 0;
-		(*ans).x2 = -b / a;
-	}
-}
-
-void classic(struct answers* ans, double a, double b, double c) {
-	double diskr;
-	diskr = (b) * (b) - 4 * (a) * (c);
+void classic(struct Answers* ans, double a, double b, double c) {
+	double diskr = (b) * (b)-4 * (a) * (c);
 	if (diskr < 0) {
 		ans->amount = 0;
 	}
@@ -155,9 +107,7 @@ void classic(struct answers* ans, double a, double b, double c) {
 	}
 }
 
-
-
-void print_answers(struct answers* ans) {
+void print_answers(struct Answers* ans) {
 	if (ans->amount == 0) {
 		printf("The equation has no solutions \n");
 	}
