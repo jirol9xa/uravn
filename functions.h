@@ -1,4 +1,4 @@
-// объявления функций
+// РѕР±СЉСЏРІР»РµРЅРёСЏ С„СѓРЅРєС†РёР№
 struct Answers {
 	int amount;
 	double roots[2];
@@ -12,12 +12,12 @@ struct Coefficients {
 };
 
 
-void input(struct Coefficients*); // для ввода данных
-void eatline(); // для отбрасывания отсальной части строки, если данные будут введены с мусором
-void wrong_input(); // на случай неправильного ввода
-void solve_equation(struct Answers* ans, struct Coefficients* Coef); // решение уравнения
-void linear_equation(struct Answers* ans, struct Coefficients* Coef); // если а == 0
-void the_quadratic_equation(struct Answers* ans, struct Coefficients* Coef); // решение через дискриминант
+void input(struct Coefficients*); // РґР»СЏ РІРІРѕРґР° РґР°РЅРЅС‹С…
+void eatline(); // РґР»СЏ РѕС‚Р±СЂР°СЃС‹РІР°РЅРёСЏ РѕС‚СЃР°Р»СЊРЅРѕР№ С‡Р°СЃС‚Рё СЃС‚СЂРѕРєРё, РµСЃР»Рё РґР°РЅРЅС‹Рµ Р±СѓРґСѓС‚ РІРІРµРґРµРЅС‹ СЃ РјСѓСЃРѕСЂРѕРј
+void wrong_input(); // РЅР° СЃР»СѓС‡Р°Р№ РЅРµРїСЂР°РІРёР»СЊРЅРѕРіРѕ РІРІРѕРґР°
+void solve_equation(struct Answers* ans, struct Coefficients* Coef); // СЂРµС€РµРЅРёРµ СѓСЂР°РІРЅРµРЅРёСЏ
+void linear_equation(struct Answers* ans, struct Coefficients* Coef); // РµСЃР»Рё Р° == 0
+void the_quadratic_equation(struct Answers* ans, struct Coefficients* Coef); // СЂРµС€РµРЅРёРµ С‡РµСЂРµР· РґРёСЃРєСЂРёРјРёРЅР°РЅС‚
 void print_answers(struct Answers*);
 
 const double zero = 1e-20;
