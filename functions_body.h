@@ -1,4 +1,4 @@
-//тела функций
+//С‚РµР»Р° С„СѓРЅРєС†РёР№
 void input(struct Coefficients* Coef) {
 	printf("Now enter the values a, b, c \n");
 	printf("enter a \n");
