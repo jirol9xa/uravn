@@ -1,4 +1,6 @@
 // объявления функций
+#include <stdio.h> 
+#include <math.h>
 struct Answers {
 	int amount;
 	double roots[2];
@@ -21,3 +23,4 @@ void the_quadratic_equation(struct Answers* ans, struct Coefficients* Coef); // 
 void print_answers(struct Answers*);
 
 const double zero = 1e-20;
+
