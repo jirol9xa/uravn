@@ -1,4 +1,5 @@
 //тела функций
+#include "functions.h"
 void input(struct Coefficients* Coef) {
 	printf("Now enter the values a, b, c \n");
 	printf("enter a \n");
