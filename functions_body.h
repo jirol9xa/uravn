@@ -1,16 +1,24 @@
 //тела функций
 #include "functions.h"
+
 void input(struct Coefficients* Coef) {
 	printf("Now enter the values a, b, c \n");
 	printf("enter a \n");
-	scanf("%lf", &(Coef->a));
-	eatline();
+	while(scanf("%lf", &(Coef->a)) !=1){
+        wrong_input();
+        eatline();
+    }
 	printf("enter b \n");
-	scanf("%lf", &(Coef->b));
+	while(scanf("%lf", &(Coef->b)) !=1){
+        wrong_input();
+        eatline();
+    }
 	eatline();
 	printf("enter c \n");
-	scanf("%lf", &(Coef->c));
-	eatline();
+	while(scanf("%lf", &(Coef->c)) !=1){
+        wrong_input();
+        eatline();
+    }
 }
 
 
@@ -84,4 +92,3 @@ void print_answers(struct Answers* ans) {
 
 	}
 }
-
